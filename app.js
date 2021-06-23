@@ -1,4 +1,3 @@
-const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
@@ -25,9 +24,8 @@ app.use((req, res, next) => {
   next();
 })
 
-// ONLY for POST
-//app.use(express.urlencoded({ extended: true}));
-app.use(bodyParser.json());
+// Middleware able to access the client request by req.body
+app.use(express.json());
 
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
