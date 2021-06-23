@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
 const sauceRoutes = require('./routes/sauce');
+const userRoutes = require('./routes/user');
+
 
 // MongoDB connection
 mongoose.connect(
@@ -29,6 +31,7 @@ app.use((req, res, next) => {
 //app.use(express.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 
+app.use('api/auth', userRoutes);
 app.use('api/sauces', sauceRoutes);
 
 module.exports = app;
