@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
+const path = require('path');
 
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
@@ -26,6 +27,9 @@ app.use((req, res, next) => {
 
 // Middleware able to access the client request by req.body
 app.use(express.json());
+
+// Middleware allowing the usage of a static folder containing the stored images
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
