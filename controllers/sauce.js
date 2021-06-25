@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Sauce = require('../models/Sauce');
 
 // POST new sauce 
@@ -25,4 +26,19 @@ exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
     .catch(error => res.status(400).json({ error }));
+};
+
+// DELETE one sauce
+exports.deleteSauce = (req, res, next) => {
+  Sauce.findOne({ _id: req.params.id })
+    .then(sauce => {
+      // removal of file from local disk
+      const filename = sauce.imageUrl.split('/img/')[1];
+      fs.unlink('img/' + filename, () => {
+        Sauce.deleteOne({ _id: req.params.id })
+        .then( () => res.status(200).json({ message: 'Sauce was deleted' }))
+        .catch(error => res.status(400).json({ error }));
+      });
+    })
+    .catch(error => res.status(500).json({ error }));
 };
