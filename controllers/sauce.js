@@ -36,20 +36,35 @@ exports.deleteSauce = (req, res, next) => {
       const filename = sauce.imageUrl.split('/img/')[1];
       fs.unlink('img/' + filename, () => {
         Sauce.deleteOne({ _id: req.params.id })
-        .then( () => res.status(200).json({ message: 'Sauce was deleted' }))
-        .catch(error => res.status(400).json({ error }));
+          .then( () => res.status(200).json({ message: 'Sauce was deleted' }))
+          .catch(error => res.status(400).json({ error }));
       });
     })
     .catch(error => res.status(500).json({ error }));
 };
 
-// PUT or modify one sauce
+// Modify one sauce
 exports.modifySauce = (req, res, next) => {
-    const sauceObject = req.file ?  
+  const sauceObject = req.file ? 
     { ...JSON.parse(req.body.sauce), 
       imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
     } : { ...req.body };
-  Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-    .then(() => res.status(200).json({ message: 'The sauce was updated' }))
-    .catch(error => res.status(400).json({ error }));
+  if (req.file) {
+    // removal of previously stored image and update object
+    Sauce.findOne({ _id: req.params.id })
+      .then(oldSauce => {
+        const oldImg = oldSauce.imageUrl.split('/img/')[1];
+        fs.unlink('img/' + oldImg, () => {
+          Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+            .then(() => res.status(200).json({ message: 'The sauce was updated' }))
+            .catch(error => res.status(400).json({ error }));
+        });
+      }) 
+      .catch(error => res.status(500).json({ error }));
+  } else {
+    // only update object
+    Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
+      .then(() => res.status(200).json({ message: 'The sauce was updated' }))
+      .catch(error => res.status(400).json({ error }));
+  }
 };
