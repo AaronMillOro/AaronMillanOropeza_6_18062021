@@ -1,4 +1,5 @@
 const express = require('express');
+const nocache = require("nocache");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const path = require('path');
@@ -27,6 +28,9 @@ app.use((req, res, next) => {
 
 // Middleware able to access the client request by req.body
 app.use(express.json());
+
+// Middleware to disable some cache from client by changing some HTTP headers
+app.use(nocache());
 
 // Middleware allowing the usage of a static folder containing the stored images
 app.use('/img', express.static(path.join(__dirname, 'img')));
