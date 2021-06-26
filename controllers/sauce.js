@@ -7,7 +7,7 @@ exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
     ...sauceObject, 
-    imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
+    imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`,
   });
   sauce.save()
     .then(res.status(201).json({ message: "New sauce created"}))
@@ -60,4 +60,9 @@ exports.modifySauce = (req, res, next) => {
         });
     })
     .catch(error => res.status(500).json({ error }));
+};
+
+// SET preference of sauce (Like or Not)
+exports.likeSauce = (req, res, next) => {
+
 };
