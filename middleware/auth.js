@@ -8,12 +8,12 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
     const userId = decodedToken.userId;
     // checks whether userID is in the request and if it corresponds to the decoded userId
-    if (req.body.userId && req.userId.body.userId !== userId) {
+    if (req.body.userId && req.body.userId !== userId) {
       throw 'Non-valid userId';
     } else {
       next();
     }
-  } catch (error) {
-    res.status(401).json({ error: error | 'Request not authentified' });
+  } catch {
+    res.status(401).json({ error: new Error('Request not authentified') });
   }
 };

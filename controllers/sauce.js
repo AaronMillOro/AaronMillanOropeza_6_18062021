@@ -56,7 +56,7 @@ exports.modifySauce = (req, res, next) => {
       const sauceObject = { 
         ...JSON.parse(req.body.sauce), 
         imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`
-        } // : { req.body };
+        } // : { ...req.body };
         // to remove unnecesary images
         fs.unlink('img/' + oldImg, () => {
           Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
