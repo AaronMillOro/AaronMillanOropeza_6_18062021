@@ -1,11 +1,13 @@
 # So Pekocko APIs
 
-The following Application Progamming Interface (API) was created to allow a given user to create and account and login into a web application. The web application allows users to create **sauces** and share them with other logged users. The users can **like** or **dislike** a sauce.
+The following Application Progamming Interface (API) was created to allow a given user to create an account and login the web application.
+
+This application allows users to create **sauces** and share them with other logged users. The users can **like** or **dislike** a sauce.
 
 ![alt text](https://github.com/AaronMillOro/AaronMillanOropeza_6_18062021/blob/master/so_peckocko_demo.gif)
 
 ## Frontend
-The frontend side was provided, the original source code can be found [here](https://github.com/OpenClassrooms-Student-Center/dwj-projet6).
+The frontend side was provided and the original source code can be found [here](https://github.com/OpenClassrooms-Student-Center/dwj-projet6).
 
 As indicated in the original repository, you need to install the specific versions of **NodeJS**, **Angular CLI** and **node-sass**. This adapted **[JSON file](https://github.com/AaronMillOro/AaronMillanOropeza_6_18062021/blob/master/frontend/package.json)** can be useful to install the required dependencies.
 
