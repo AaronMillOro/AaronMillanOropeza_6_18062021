@@ -25,7 +25,7 @@ exports.login = (req, res, next) => {
     .then(user => {
       // checks presence of the user in the DB and returns user
       if (!user){
-        return res.status(401).json({ error: 'User not found'});
+        return res.status(404).json({ error: 'User not found'});
       }
       // Checks whether a password is correct
       bcrypt.compare(req.body.password, user.password)
@@ -42,7 +42,7 @@ exports.login = (req, res, next) => {
             )
            });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(401).json({ error }));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(404).json({ error }));
 };

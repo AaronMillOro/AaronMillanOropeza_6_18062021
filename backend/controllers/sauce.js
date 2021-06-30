@@ -12,7 +12,7 @@ exports.create = (req, res, next) => {
   });
   sauce.save()
     .then(res.status(201).json({ message: "New sauce created"}))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(422).json({ error }));
 };
 
 
@@ -20,7 +20,7 @@ exports.create = (req, res, next) => {
 exports.all = (req, res, next) => {
   Sauce.find()
     .then(sauces => res.status(200).json(sauces))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(404).json({ error }));
 };
 
 
@@ -28,7 +28,7 @@ exports.all = (req, res, next) => {
 exports.one = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => res.status(200).json(sauce))
-    .catch(error => res.status(400).json({ error }));
+    .catch(error => res.status(404).json({ error }));
 };
 
 
@@ -44,7 +44,7 @@ exports.delete = (req, res, next) => {
           .catch(error => res.status(400).json({ error }));
       });
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(404).json({ error }));
 };
 
 
