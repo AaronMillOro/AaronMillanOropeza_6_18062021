@@ -1,8 +1,6 @@
-# So Pekocko APIs
+# So Pekocko API
 
-The following Application Progamming Interface (API) was created to allow a given user to create an account and login the web application.
-
-This application allows users to create **sauces** and share them with other logged users. The users can **like** or **dislike** a sauce.
+The following Application Progamming Interface (API) was created to allow a given user to **create an account** and **login** the web application. The application allows users to create, update or delete **sauces** and share them with other logged users. The users can **like** or **dislike** their preferred sauces.
 
 ![alt text](https://github.com/AaronMillOro/AaronMillanOropeza_6_18062021/blob/master/so_peckocko_demo.gif)
 
@@ -18,13 +16,17 @@ nvm use 12.14.1
 ng serve
 ```
 
-Then, open in the web browser the :  **localhost:4200**
+Then, open in your favorite web browser the **localhost:4200**
 
 ## Backend
 
-The API was build using **NodeJS**, **Express** and **MongoDB**. Before running the server side of the app you need to install the required [NPM dependencies](https://github.com/AaronMillOro/AaronMillanOropeza_6_18062021/blob/master/backend/package.json).
+The API was build using **NodeJS**, **Express** and **MongoDB**. Before running the server side of the app you need to install the required [NPM dependencies](https://github.com/AaronMillOro/AaronMillanOropeza_6_18062021/blob/master/backend/package.json). In the root folder (backend/): 
 
-In addition to that, in the folder **backend/** you need to create a file named '**.env**'. In that file you need to adapt the environment variables  (by replacing the values inside <>) :
+```
+npm install
+```
+
+In addition to that, in the same folder **backend/** you need to create a file named '**.env**'. In that file you need to define the environment variables  (by replacing the values inside <>) :
 
 ```
 PORT = <port>
@@ -57,16 +59,16 @@ The implemented routes are:
 
 ### Security feautures
 
-Security measures were implemented in the conception of the API. These include:
+Security measures were considered in the conception of the API, these include:
 
- * The stored passwords  are encrypted
  * The generation of passwords is secured with a password validator
+ * The stored passwords in MongoDB are encrypted
  * The potential errors can be captured and monitored
  * The MongoDB Atlas was setup with the possibilities to edit, modify and delete the content of the sauces table.
  * Authentification was implemented with a temporary token and all the routes require the authentication of this token.
- * When signing up, the email is unique for each user, a mongoose plug-in was adapted.
+ * When signing up, a mongoose plug-in verifies that the email is unique for each user.
  * No cache is allowed in the app
- * Security was re-inforced with the 'helmet' package
+ * Security was reinforced with the [helmet](https://www.npmjs.com/package/helmet) package
 
 Enjoy!
 
