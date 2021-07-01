@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     } else {
       next();
     }
-  } catch {
-    res.status(401).json({ error: new Error('Request not authentified') });
+  } catch (error) {
+    res.status(401).json({ error: error || 'Request not authentified' });
   }
 };
