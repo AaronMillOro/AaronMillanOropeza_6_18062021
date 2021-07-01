@@ -5,12 +5,17 @@ const dotenv = require('dotenv').config();
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
+    // presence of token
+    if(!token) {
+      return res.status(403).json({error: 'Access denied'});
+    }
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-    const userId = decodedToken.userId;
-    // checks whether userID is in the request and if it corresponds to the decoded userId
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Non-valid userId';
+    // check if token was correctly constructed
+    if(!decodedToken.userId) {
+      return res.status(403).json({error: 'Non-valid userId'});
     } else {
+      req.body.userId = decodedToken.userId;
+      //console.log(req.body);
       next();
     }
   } catch (error) {
