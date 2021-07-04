@@ -10,12 +10,11 @@ module.exports = (req, res, next) => {
       return res.status(403).json({error: 'Access denied'});
     }
     const decodedToken = jwt.verify(token, process.env.TOKEN_KEY);
-    // check if token was correctly constructed
-    if(!decodedToken.userId) {
+    // token compared against the userId in the POST requests
+    if( req.body.userId && (req.body.userId !== decodedToken.userId) ) {
       return res.status(403).json({error: 'Non-valid userId'});
     } else {
-      req.body.userId = decodedToken.userId;
-      //console.log(req.body);
+      console.log(req.body);
       next();
     }
   } catch (error) {

@@ -6,6 +6,7 @@ const Sauce = require('../models/Sauce');
 exports.create = (req, res, next) => {
   // transforms the chain of characters JSON from the request into an object
   const sauceObject = JSON.parse(req.body.sauce);
+  console.log(sauceObject);
   const sauce = new Sauce({
     ...sauceObject, 
     imageUrl: `${req.protocol}://${req.get('host')}/img/${req.file.filename}`,
